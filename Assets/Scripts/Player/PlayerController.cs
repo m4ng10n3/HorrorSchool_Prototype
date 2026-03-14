@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
         inputActions = new PlayerInputActions();
     }
 

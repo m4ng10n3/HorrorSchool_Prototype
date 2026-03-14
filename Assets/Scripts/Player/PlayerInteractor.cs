@@ -10,6 +10,8 @@ public class PlayerInteractor : MonoBehaviour
     private PlayerInputActions inputActions;
     private PlayerInventory inventory;
 
+    public string HoveredDescription { get; private set; }
+
     private void Awake()
     {
         inputActions = new PlayerInputActions();
@@ -32,6 +34,37 @@ public class PlayerInteractor : MonoBehaviour
         inputActions.Player.NextItem.performed -= OnNextItemPerformed;
         inputActions.Player.PreviousItem.performed -= OnPreviousItemPerformed;
         inputActions.Disable();
+    }
+
+    private void Update()
+    {
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, ~0, QueryTriggerInteraction.Collide))
+        {
+            WorldItem worldItem = hit.collider.GetComponent<WorldItem>();
+            if (worldItem != null && worldItem.itemData != null)
+            {
+                string desc = worldItem.itemData.description;
+                HoveredDescription = string.IsNullOrEmpty(desc)
+                    ? worldItem.itemData.itemName
+                    : $"{worldItem.itemData.itemName}\n{desc}";
+                return;
+            }
+
+            DeliveryZone zone = hit.collider.GetComponent<DeliveryZone>();
+            if (zone != null)
+            {
+                HoveredDescription = zone.Description;
+                return;
+            }
+
+            HoveredDescription = null;
+        }
+        else
+        {
+            HoveredDescription = null;
+        }
     }
 
     private void OnInteractPerformed(InputAction.CallbackContext context)

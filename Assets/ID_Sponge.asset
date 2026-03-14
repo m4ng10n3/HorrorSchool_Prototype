@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: ID_Sponge
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Sponge
+  description: Sponge
   worldPrefab: {fileID: 0}

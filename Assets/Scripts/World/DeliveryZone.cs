@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class DeliveryZone : MonoBehaviour
 {
+    [Header("Descrizione (tooltip)")]
+    [SerializeField] private string zoneName = "Zona di consegna";
+    [TextArea] [SerializeField] private string zoneDescription = "Consegna qui l'oggetto richiesto.";
+
+    public string Description => $"{zoneName}\n{zoneDescription}";
+
     private TeacherRequestSystem teacher;
 
     private void Awake()

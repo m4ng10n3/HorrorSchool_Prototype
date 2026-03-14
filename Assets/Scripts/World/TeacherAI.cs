@@ -16,7 +16,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class TeacherAI : MonoBehaviour
 {
-    public enum AIState { Idle, Search, Chase, Lost }
+    public enum AIState { Idle, Search, Chase, Lost, Caught }
 
     // ── Riferimenti ───────────────────────────────────────────────
     [Header("Riferimenti")]
@@ -47,6 +47,13 @@ public class TeacherAI : MonoBehaviour
     [Header("Rilevamento blocco (porta / ostacolo)")]
     public float stuckSpeedThreshold = 0.4f;
     public float stuckTimeLimit      = 2.5f;
+
+    // ── Catch ─────────────────────────────────────────────────────
+    [Header("Cattura player")]
+    public float catchDistance = 1.5f;
+
+    // ── Evento ────────────────────────────────────────────────────
+    public event System.Action OnPlayerCaught;
 
     // ── Stato pubblico ────────────────────────────────────────────
     public AIState CurrentState { get; private set; } = AIState.Idle;
@@ -103,6 +110,10 @@ public class TeacherAI : MonoBehaviour
 
     private void Update()
     {
+        // Catch check – attivo in tutti gli stati tranne Idle e Caught
+        if (CurrentState != AIState.Idle && CurrentState != AIState.Caught)
+            CheckCatchPlayer();
+
         switch (CurrentState)
         {
             case AIState.Idle:   UpdateIdle();   break;
@@ -268,6 +279,24 @@ public class TeacherAI : MonoBehaviour
     }
 
     // ─────────────────────────────────────────────────────────────
+    // ── Catch ─────────────────────────────────────────────────────
+
+    private void CheckCatchPlayer()
+    {
+        if (player == null) return;
+        if (Vector3.Distance(transform.position, player.position) <= catchDistance)
+            CatchPlayer();
+    }
+
+    private void CatchPlayer()
+    {
+        CurrentState = AIState.Caught;
+        agent.isStopped = true;
+        agent.ResetPath();
+        Debug.Log("[TeacherAI] Giocatore catturato! GAME OVER");
+        OnPlayerCaught?.Invoke();
+    }
+
     // Helpers
     // ─────────────────────────────────────────────────────────────
 

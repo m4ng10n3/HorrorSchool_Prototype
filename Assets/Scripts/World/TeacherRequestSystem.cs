@@ -21,6 +21,12 @@ public class TeacherRequestSystem : MonoBehaviour
     public float TimeRemaining { get; private set; }
     public bool RequestActive { get; private set; }
 
+    /// <summary>Blocca il timer e le richieste (es. game over).</summary>
+    public void Freeze()
+    {
+        RequestActive = false;
+    }
+
     // Pool degli spawn point ancora da consegnare
     private List<ItemSpawnPoint> remainingSpawnPoints = new List<ItemSpawnPoint>();
     private ItemSpawnPoint activeSpawnPoint;

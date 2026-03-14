@@ -69,12 +69,6 @@ public class PlayerInteractor : MonoBehaviour
                 return;
             }
 
-            DeliveryZone deliveryZone = hit.collider.GetComponent<DeliveryZone>();
-
-            if (deliveryZone != null)
-            {
-                deliveryZone.TryDeliver(inventory);
-            }
         }
     }
 

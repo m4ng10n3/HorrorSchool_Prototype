@@ -2939,7 +2939,7 @@ Transform:
   m_GameObject: {fileID: 2114083480}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.03, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0.085, z: 1.5}
   m_LocalScale: {x: 2, y: 0.05, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2960,7 +2960,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -3083,6 +3083,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7042363348284770473, guid: f6224214cb5ef0b41a156704f1e36ff7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7764739325599613486, guid: f6224214cb5ef0b41a156704f1e36ff7, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7764739325599613486, guid: f6224214cb5ef0b41a156704f1e36ff7, type: 3}
       propertyPath: m_Name
       value: Item_Crowbar_Placeholder

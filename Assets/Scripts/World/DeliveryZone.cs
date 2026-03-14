@@ -2,21 +2,17 @@ using UnityEngine;
 
 public class DeliveryZone : MonoBehaviour
 {
-    public void TryDeliver(PlayerInventory inventory)
+    private void OnTriggerEnter(Collider other)
     {
-        ItemData selectedItem = inventory.GetSelectedItem();
+        WorldItem worldItem = other.GetComponent<WorldItem>();
 
-        if (selectedItem == null)
-        {
-            Debug.Log("Non hai nessun oggetto da consegnare.");
-            return;
-        }
+        if (worldItem == null) return;
 
-        Debug.Log($"[DeliveryZone] Oggetto consegnato: {selectedItem.itemName} — rimosso dall'inventario e distrutto.");
-
-        inventory.RemoveSelectedItem();
+        Debug.Log($"[DeliveryZone] Oggetto consegnato: {worldItem.itemData.itemName} — distrutto.");
 
         // Qui in futuro chiameremo:
-        // TeacherRequestSystem.CheckDeliveredItem(selectedItem);
+        // TeacherRequestSystem.CheckDeliveredItem(worldItem.itemData);
+
+        Destroy(other.gameObject);
     }
 }

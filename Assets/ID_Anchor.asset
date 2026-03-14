@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ID_Anchor
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Anchor
-  description: Anchor
+  description: 
   worldPrefab: {fileID: 0}

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ID_Crowbar
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Crowbar
-  description: CrawBar
+  description: 
   worldPrefab: {fileID: 0}

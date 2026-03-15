@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Crowbar
   description: 
-  worldPrefab: {fileID: 7764739325599613486, guid: f6224214cb5ef0b41a156704f1e36ff7, type: 3}
+  worldPrefab: {fileID: 1423809998238650345, guid: e24fa6c045f5fc24cb000ebc1e5c60a4, type: 3}

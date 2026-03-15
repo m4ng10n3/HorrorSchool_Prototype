@@ -52,6 +52,14 @@ public class TeacherAI : MonoBehaviour
     [Header("Cattura player")]
     public float catchDistance = 1.5f;
 
+    // ── Animator ──────────────────────────────────────────────────
+    [Header("Animator (auto-trovato sul figlio FBX)")]
+    public Animator animator;
+
+    // Nomi dei parametri nell'Animator Controller
+    private static readonly int SpeedParam  = Animator.StringToHash("Speed");
+    private static readonly int CaughtParam = Animator.StringToHash("Caught");
+
     // ── Evento ────────────────────────────────────────────────────
     public event System.Action OnPlayerCaught;
 
@@ -75,6 +83,9 @@ public class TeacherAI : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
 
         if (teacherSystem == null)
             teacherSystem = FindFirstObjectByType<TeacherRequestSystem>();
@@ -110,6 +121,10 @@ public class TeacherAI : MonoBehaviour
 
     private void Update()
     {
+        // Aggiorna animator con velocità attuale del NavMeshAgent
+        if (animator != null)
+            animator.SetFloat(SpeedParam, agent.velocity.magnitude);
+
         // Catch check – attivo in tutti gli stati tranne Idle e Caught
         if (CurrentState != AIState.Idle && CurrentState != AIState.Caught)
             CheckCatchPlayer();
@@ -293,6 +308,11 @@ public class TeacherAI : MonoBehaviour
         CurrentState = AIState.Caught;
         agent.isStopped = true;
         agent.ResetPath();
+        if (animator != null)
+        {
+            animator.SetFloat(SpeedParam, 0f);
+            animator.SetTrigger(CaughtParam);
+        }
         Debug.Log("[TeacherAI] Giocatore catturato! GAME OVER");
         OnPlayerCaught?.Invoke();
     }
